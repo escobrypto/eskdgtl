@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ESKDGTL — business cards</title>
+<link rel="icon" href="esk-mark.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@900&family=Azeret+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--ink:#050505;--paper:#f2f0eb;--acc:#38bdf8;--dim:#7a7a76;--line:#232321;--disp:'Unbounded',sans-serif;--mono:'Azeret Mono',monospace;--cw:3.5in;--ch:2in}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0e0e0d;color:#ededea;font-family:var(--mono);font-size:12px;padding:56px clamp(16px,4vw,64px)}
+  h1{font-family:var(--disp);font-weight:900;font-size:clamp(28px,4vw,54px);text-transform:uppercase;letter-spacing:-.04em;line-height:.9}
+  .u{font-size:11px;color:var(--dim)}.u b{color:#ededea;font-weight:500}
+  .set{margin-top:70px}
+  .set h2{font-family:var(--disp);font-weight:900;font-size:16px;text-transform:uppercase;margin-bottom:6px}
+  .set p{color:var(--dim);max-width:60ch;margin-bottom:22px;line-height:1.5}
+  .pair{display:flex;gap:32px;flex-wrap:wrap;align-items:flex-start}
+  .side{display:flex;flex-direction:column;gap:8px}.side span{font-size:10px;color:var(--dim)}
+  .card{width:var(--cw);height:var(--ch);position:relative;overflow:hidden;font-family:var(--mono);box-shadow:0 30px 60px rgba(0,0,0,.6);background:var(--ink);color:#f2f0eb}
+  .card.paper{background:var(--paper);color:var(--ink)}
+  .wm{font-family:var(--disp);font-weight:900;text-transform:uppercase;letter-spacing:-.05em;line-height:.8;position:absolute;white-space:nowrap}
+  .wm sup{font-size:.28em;vertical-align:1.4em;margin-left:.05em;letter-spacing:0}
+  .m{font-size:6.3pt;line-height:1.5;position:absolute;letter-spacing:.02em}
+  .m b{font-weight:500}
+  .star{position:absolute;fill:var(--acc);filter:drop-shadow(0 0 6px rgba(56,189,248,.6))}
+  .orb{position:absolute;overflow:visible;pointer-events:none}
+  .orb ellipse{fill:none;stroke:var(--acc);stroke-width:1.8}
+  .plus{position:absolute;width:9px;height:9px}
+  .plus::before,.plus::after{content:"";position:absolute;background:currentColor}
+  .plus::before{left:0;right:0;top:4px;height:1px}.plus::after{top:0;bottom:0;left:4px;width:1px}
+  .ic{display:inline-block;width:9px;height:9px;border:1px solid currentColor;border-radius:50%;vertical-align:-1px;margin-right:6px}
+  .ic.sq{border-radius:1px}.ic.pin{border-radius:50% 50% 50% 0;transform:rotate(-45deg)}
+  .glow{position:absolute;width:1.4in;height:1.4in;border-radius:50%;background:radial-gradient(circle,rgba(56,189,248,.22),transparent 60%);pointer-events:none}
+
+  /* 01 orbit — the photo */
+  .c1f .wm{font-size:30pt;left:50%;top:50%;transform:translate(-50%,-50%);letter-spacing:-.04em}
+  .c1f .orb{left:.12in;top:.22in;width:3.26in;height:1.56in}
+  .c1f .orb ellipse{transform:rotate(-14deg);transform-origin:center}
+  .c1f .star{width:.44in;right:.5in;top:.08in}
+  .c1f .star.s{width:.12in;left:.5in;bottom:.4in}
+  .c1b .wm{font-size:11pt;left:.22in;top:.22in}
+  .c1b .m.svc{right:.34in;top:.2in;text-align:left;color:#bdbdb8}
+  .c1b .h{position:absolute;left:.22in;top:.72in;font-family:var(--disp);font-weight:900;font-size:9.2pt;line-height:1.05;text-transform:uppercase;letter-spacing:-.02em}
+  .c1b .h i{font-style:normal;color:var(--acc)}
+  .c1b .m.ct{left:.22in;bottom:.2in}
+  .c1b .glow{right:-.3in;bottom:-.3in}
+  .c1b .star{width:1.05in;right:.1in;bottom:-.02in}
+  .c1b .star.s{width:.1in;right:.9in;top:.26in}
+
+  /* 02 stamp */
+  .c2f .wm{font-size:44pt;left:-.05em;bottom:-.08em;letter-spacing:-.06em}
+  .c2f .wm i{font-style:normal;color:var(--acc)}
+  .c2f .star{width:.5in;right:.3in;top:.22in}
+  .c2f .m.tl{left:.2in;top:.2in}
+  .c2b{display:flex;align-items:center;justify-content:center}
+  .c2b .mk{width:.9in;height:.9in}
+  .c2b .m.tl{left:.2in;top:.2in}.c2b .m.br{right:.2in;bottom:.2in;text-align:right}.c2b .m.bl{left:.2in;bottom:.2in}.c2b .m.tr{right:.2in;top:.2in;text-align:right}
+
+  /* 03 paper */
+  .c3f .wm{font-size:26pt;left:.2in;top:.3in;letter-spacing:-.04em}
+  .c3f .orb{left:-.1in;top:.05in;width:2.6in;height:1in}
+  .c3f .orb ellipse{stroke:var(--ink);stroke-width:1.4;transform:rotate(-12deg);transform-origin:center}
+  .c3f .h{position:absolute;left:.2in;bottom:.22in;font-family:var(--disp);font-weight:900;font-size:8.5pt;line-height:1.05;text-transform:uppercase;letter-spacing:-.02em}
+  .c3f .h small{display:block;font-family:var(--mono);font-weight:400;text-transform:lowercase;font-size:6.3pt;color:#5a5a55;margin-top:3px}
+  .c3f .star{width:.5in;right:.22in;bottom:.18in;filter:none}
+  .c3f .star.s{width:.1in;right:.9in;top:.22in}
+  .c3b .star{width:1.9in;left:50%;top:50%;transform:translate(-50%,-50%);filter:drop-shadow(0 0 14px rgba(56,189,248,.55))}
+  .c3b .m.tl{left:.2in;top:.2in}.c3b .m.br{right:.2in;bottom:.2in;text-align:right}.c3b .m.bl{left:.2in;bottom:.2in}.c3b .m.tr{right:.2in;top:.2in;text-align:right}
+
+  @media print{body{background:#fff;padding:0}h1,.u,.set h2,.set p,.side span,.note{display:none}.set{margin:0}.pair{gap:0}.card{box-shadow:none;page-break-after:always}@page{size:var(--cw) var(--ch);margin:0}}
+  @media(max-width:760px){.card{transform:scale(.85);transform-origin:top left}.side{height:calc(var(--ch)*.85 + 20px)}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="star" viewBox="0 0 100 100"><path d="M50 0C52.5 30 70 47.5 100 50 70 52.5 52.5 70 50 100 47.5 70 30 52.5 0 50 30 47.5 47.5 30 50 0Z"/></symbol>
+<symbol id="eskmark" viewBox="0 0 1000 1000">
+      <rect width="1000" height="1000" fill="currentColor"/>
+      <g transform="translate(70.0 634.5) scale(0.35878)"><path fill="#050505" d="M729 -464V-286H164V-464ZM341 -375 295 -96 197 -204H766V0H40L95 -375L40 -750H761V-546H197L295 -654Z M787 -247H1049Q1053 -225 1072.0 -209.5Q1091 -194 1124.0 -185.5Q1157 -177 1203 -177Q1263 -177 1296.5 -189.0Q1330 -201 1330 -228Q1330 -246 1311.0 -258.5Q1292 -271 1233 -275L1109 -283Q940 -294 865.0 -355.0Q790 -416 790 -516Q790 -600 838.0 -656.0Q886 -712 972.5 -740.0Q1059 -768 1175 -768Q1288 -768 1375.5 -736.5Q1463 -705 1514.5 -648.0Q1566 -591 1571 -515H1309Q1306 -533 1289.5 -546.0Q1273 -559 1243.0 -566.0Q1213 -573 1170 -573Q1115 -573 1083.5 -562.0Q1052 -551 1052 -526Q1052 -509 1070.5 -497.0Q1089 -485 1142 -481L1282 -472Q1392 -465 1460.0 -439.5Q1528 -414 1559.5 -369.0Q1591 -324 1591 -258Q1591 -175 1542.0 -113.0Q1493 -51 1404.5 -16.5Q1316 18 1198 18Q1076 18 984.0 -15.0Q892 -48 840.5 -108.0Q789 -168 787 -247Z M1622 0V-750H1878V-201L1813 -256L2186 -750H2456L1856 0ZM1982 -345 2172 -494 2466 0H2174Z"/></g>
+      <use href="#star" x="842" y="106" width="90" height="90" fill="#38bdf8"/>
+      <rect x="40" y="40" width="920" height="920" fill="none" stroke="#050505" stroke-width="6"/>
+    </symbol></defs></svg>
+
+<h1>ESKDGTL<br>business cards</h1>
+<p class="u" style="margin-top:14px">3 concepts <b>·</b> 3.5 × 2 in <b>·</b> star + orbit system <b>·</b> ⌘P prints each face at true size</p>
+
+<section class="set">
+  <h2>01 / Orbit</h2>
+  <p>The one from the photo. Wordmark centered, one orbit ring through it, star at the top of the ring. Back: services top-right, the line, three contact rows, a big star bleeding off the corner.</p>
+  <div class="pair">
+    <div class="side"><span>front</span>
+      <div class="card c1f">
+        <svg class="orb" viewBox="0 0 290 130" preserveAspectRatio="none"><ellipse cx="145" cy="65" rx="140" ry="42"/></svg>
+        <div class="wm">ESKDGTL<sup>®</sup></div>
+        <svg class="star" viewBox="0 0 100 100"><use href="#star"/></svg>
+        <svg class="star s" viewBox="0 0 100 100"><use href="#star"/></svg>
+      </div>
+    </div>
+    <div class="side"><span>back</span>
+      <div class="card c1b">
+        <i class="plus" style="left:.12in;top:.12in"></i><i class="plus" style="right:.12in;top:.12in"></i><i class="plus" style="right:.12in;bottom:.12in"></i>
+        <div class="wm">ESKDGTL<sup>®</sup></div>
+        <div class="m svc">web design<br>development<br>brand + digital</div>
+        <div class="h">We make websites.<br><i>Good ones.</i></div>
+        <div class="m ct"><span class="ic"></span>eskdgtl.com<br><span class="ic sq"></span>hello@eskdgtl.com<br><span class="ic pin"></span>richmond, va</div>
+        <div class="glow"></div>
+        <svg class="star" viewBox="0 0 100 100"><use href="#star"/></svg>
+        <svg class="star s" viewBox="0 0 100 100"><use href="#star"/></svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="set">
+  <h2>02 / Stamp</h2>
+  <p>Wordmark cropped off the bottom edge, star where the ® would go. Back is just the ESK mark — the card is the favicon.</p>
+  <div class="pair">
+    <div class="side"><span>front</span>
+      <div class="card c2f">
+        <div class="m tl">ESK-002 / independent web studio</div>
+        <svg class="star" viewBox="0 0 100 100"><use href="#star"/></svg>
+        <div class="wm">ESK<i>D</i>GTL</div>
+      </div>
+    </div>
+    <div class="side"><span>back</span>
+      <div class="card c2b">
+        <div class="m tl">esco</div><div class="m tr">richmond, va</div>
+        <svg class="mk" viewBox="0 0 1000 1000" style="color:#f2f0eb"><use href="#eskmark"/></svg>
+        <div class="m bl"><b>eskdgtl.com</b></div><div class="m br">hello@eskdgtl.com</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="set">
+  <h2>03 / Paper</h2>
+  <p>Same system inverted onto uncoated off-white. Orbit in black ink, star in blue — the only color on the card. Back is black with one giant star, nothing else but the corners.</p>
+  <div class="pair">
+    <div class="side"><span>front</span>
+      <div class="card paper c3f">
+        <svg class="orb" viewBox="0 0 260 100" preserveAspectRatio="none"><ellipse cx="130" cy="50" rx="126" ry="34"/></svg>
+        <div class="wm">ESKDGTL<sup>®</sup></div>
+        <div class="h">We make websites.<small>good ones. richmond, va.</small></div>
+        <svg class="star" viewBox="0 0 100 100"><use href="#star"/></svg>
+        <svg class="star s" viewBox="0 0 100 100"><use href="#star"/></svg>
+      </div>
+    </div>
+    <div class="side"><span>back</span>
+      <div class="card c3b">
+        <div class="m tl">eskdgtl.com</div><div class="m tr">hello@eskdgtl.com</div>
+        <svg class="star" viewBox="0 0 100 100"><use href="#star"/></svg>
+        <div class="m bl">esco</div><div class="m br">richmond, va</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<p class="u note" style="margin-top:70px">print spec: 3.5 × 2 in + .125 in bleed. 01 and 02 on black-core or soft-touch; the blue runs as a spot (Pantone 298 C is close) if the printer offers it. 03 on 16pt uncoated.</p>
+</body>
+</html>
