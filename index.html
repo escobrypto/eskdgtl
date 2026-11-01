@@ -369,6 +369,24 @@
     .pj .txt,.pj.alt .txt,.pj.wide .txt{display:block;padding-top:22px}
     .pj .fig .mob{width:26%}
   }
+
+  /* live previews */
+  .pj .fig .live{position:absolute;inset:0;overflow:hidden;background:#0c0c0b;display:none}
+  .pj .fig .live iframe{position:absolute;left:0;top:0;width:1440px;height:900px;border:0;transform-origin:0 0;pointer-events:none;background:#000;opacity:0;transition:opacity .6s}
+  .pj .fig .live.ok iframe{opacity:1}
+  .pj.wide .fig .live iframe{height:620px}
+  .pj.app .fig .live iframe{width:1280px;height:720px}
+  .pj .fig .live .tag{position:absolute;left:12px;bottom:10px;z-index:3;font-size:10px;letter-spacing:.06em;color:var(--txt);background:var(--ink);padding:5px 8px;display:flex;gap:7px;align-items:center}
+  .pj .fig .live .tag i{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 1.6s steps(1) infinite}
+  @keyframes blink{50%{opacity:.25}}
+  .pj .fig.haslive .live{display:block}
+  .pj .fig.haslive>img,.pj .fig.haslive .ph{display:none}
+  .pj .fig.haslive .mob{z-index:4}
+  .pj .fig .live .go{position:absolute;inset:0;z-index:5}
+  .pj:hover .fig .live iframe{pointer-events:auto}
+  .pj .fig .live .go:hover ~ .tag,.pj:hover .fig .live .tag{color:var(--acc)}
+  @media(prefers-reduced-motion:reduce){.pj .fig .live .tag i{animation:none}}
+
   @media(prefers-reduced-motion:reduce){
     .pj .fig{clip-path:none;transition:none}.pj .fig img{transform:none;transition:none}
     .pj .txt>*{opacity:1;transform:none;transition:none}.pj .fig .mob{opacity:1;transform:none}
@@ -440,6 +458,7 @@
   <article class="pj" data-site="bearriver">
     <span class="idx">01</span><span class="cat">construction · richmond, va</span>
     <div class="fig">
+      <div class="live"><iframe data-src="https://bearriverconstruction.com" title="https://bearriverconstruction.com live preview" loading="lazy" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><a class="go" href="https://bearriverconstruction.com" target="_blank" rel="noopener" aria-label="open https://bearriverconstruction.com"></a><span class="tag"><i></i>live</span></div>
       <img src="work/bearriver.webp" alt="Bear River Construction website" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')">
       <div class="mob"><img src="work/bearriver-m.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')"></div>
       <div class="ph"><b>B</b><span>screenshot → <code>work/bearriver.webp</code> 1600×1000</span></div>
@@ -457,6 +476,7 @@
   <article class="pj wide" data-site="brypto">
     <span class="idx">02</span><span class="cat">crypto trading community · discord</span>
     <div class="fig">
+      <div class="live"><iframe data-src="https://joinbrypto.com" title="https://joinbrypto.com live preview" loading="lazy" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><a class="go" href="https://joinbrypto.com" target="_blank" rel="noopener" aria-label="open https://joinbrypto.com"></a><span class="tag"><i></i>live</span></div>
       <img src="work/brypto.webp" alt="Brypto website" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')">
       <div class="mob"><img src="work/brypto-m.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')"></div>
       <div class="ph"><b>B</b><span>screenshot → <code>work/brypto.webp</code> 2000×860</span></div>
@@ -474,6 +494,7 @@
   <article class="pj alt" data-site="strawberry">
     <span class="idx">03</span><span class="cat">event food &amp; beverage · virginia</span>
     <div class="fig">
+      <div class="live"><iframe data-src="https://strawberrystreetevents.com" title="https://strawberrystreetevents.com live preview" loading="lazy" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><a class="go" href="https://strawberrystreetevents.com" target="_blank" rel="noopener" aria-label="open https://strawberrystreetevents.com"></a><span class="tag"><i></i>live</span></div>
       <img src="work/strawberry.webp" alt="Strawberry Street Events website" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')">
       <div class="mob"><img src="work/strawberry-m.webp" alt="" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')"></div>
       <div class="ph"><b>S</b><span>screenshot → <code>work/strawberry.webp</code> 1600×1000</span></div>
@@ -491,6 +512,7 @@
   <article class="pj app" data-site="ghoul">
     <span class="idx">04</span><span class="cat">multiplayer web game · free to play</span>
     <div class="fig">
+      <div class="live"><iframe data-src="https://ghoulpoker.com" title="https://ghoulpoker.com live preview" loading="lazy" tabindex="-1" sandbox="allow-scripts allow-same-origin"></iframe><a class="go" href="https://ghoulpoker.com" target="_blank" rel="noopener" aria-label="open https://ghoulpoker.com"></a><span class="tag"><i></i>live</span></div>
       <img src="work/ghoul.webp" alt="Ghoul Poker game table" loading="lazy" decoding="async" onerror="this.parentNode.classList.add('missing')">
       <div class="ph"><b>G</b><span>screenshot → <code>work/ghoul.webp</code> 1920×1080 (in-game table)</span></div>
     </div>
@@ -687,6 +709,19 @@
       letters().forEach(el=>{const b=el.getBoundingClientRect();const dx=(mx-(b.left+b.width/2))/innerWidth, dy=(my-(b.top+b.height/2))/innerHeight;
         el.style.transform=`translate(${dx*-10}px,${dy*-8}px) skewX(${dx*-4}deg)`;});}
     wm.addEventListener('mouseleave',()=>letters().forEach(el=>el.style.transform=''));
+  }
+
+
+  // live site previews: desktop only, loaded when near viewport, scaled to fit
+  if(innerWidth>900 && !matchMedia('(prefers-reduced-motion:reduce)').matches){
+    const figs=[...document.querySelectorAll('.pj .fig')];
+    const fit=()=>figs.forEach(f=>{const fr=f.querySelector('iframe');if(!fr)return;const w=parseInt(fr.style.width||getComputedStyle(fr).width);fr.style.transform=`scale(${f.clientWidth/w})`;});
+    const lio=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;const f=e.target,fr=f.querySelector('iframe');lio.unobserve(f);
+      f.classList.add('haslive');fr.src=fr.dataset.src;
+      fr.addEventListener('load',()=>f.querySelector('.live').classList.add('ok'));
+      setTimeout(()=>{if(!f.querySelector('.live').classList.contains('ok'))f.classList.remove('haslive')},9000);
+    }),{rootMargin:'600px 0px'});
+    figs.forEach(f=>lio.observe(f)); fit(); addEventListener('resize',fit);
   }
 
   // form → mailto fallback. swap for your endpoint (Formspree / Vercel /api) when ready.
